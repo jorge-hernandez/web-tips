@@ -2,11 +2,14 @@ var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
+//check if necessary
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose =  require('mongoose');
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var session = require('express-session');
+var FileStore = require('session-file-store')(session);
 
 var config = require('./config');
 
@@ -24,6 +27,15 @@ var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
 
 var app = express();
+
+app.use(session({
+	name: 'session-id',
+	secret: config.secretKey,
+	saveUninitialized: true,
+	resave: true,
+	store: new FileStore()
+}));
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -34,10 +46,12 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+//app.use(session());
 
 //passport config
 var User = require('./models/user');
 app.use(passport.initialize());
+app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
@@ -77,18 +91,5 @@ app.use(function(err, req, res, next){
 	  error: {}
     });
 });
-
-
-
-// error handler
-/*app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
-});*/
 
 module.exports = app;

@@ -3,6 +3,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 
 var Dishes = require('../models/dishes');
+var passport = require('passport');
 var Verify = require('./verify');
 
 module.exports =  dishRouter = express.Router();
@@ -10,7 +11,7 @@ dishRouter.use(bodyParser.json());
 
 dishRouter.route('/')
 .get(Verify.verifyOrdinaryUser, function(req, res, next){
-    res.end('Getting all dishes');
+    res.end('Getting all dishes ');
 })
 .post(Verify.verifyOrdinaryUser, function(req, res, next){
     res.write('Creating a dish with name:  ' + req.body.name);

@@ -1,13 +1,13 @@
 
-This login implementantion uses the following packages
+This is a token based register user / login / logout and endpoint access protection.
 
-npm install passport passport-local passport-local-mongoose --save
-npm install jsonwebtoken --save
+Is implemented with: 
 
-also install mongo-currency for the /models/dishes.js dependency
+- passport passport-local
+- passport-local-mongoose
+- jsonwebtoken
 
+It also requires adding express-session.  The autentication control functionality es added to the res object.  Passport keeps track of logged users in the req object and stores it in the session in order to be retrieved when an independent http request is executed.
 
-Note: that logout is not fully implemented. the token must be destroyed.
-restarting node or shuting down mongo does not invalidate the token.:
-
-
+Sessions are implemented as files in the server side.
+ 
