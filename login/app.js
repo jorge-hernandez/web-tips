@@ -24,7 +24,6 @@ var promoRouter = require('./routes/promoRouter');
 var leaderRouter = require('./routes/leaderRouter');
 
 var app = express();
-
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -73,7 +72,7 @@ if(app.get('env') === 'development') {
 // no stacktraces leaked to user
 app.use(function(err, req, res, next){
     res.status(err.status || 500);
-    res.json({
+		res.json({
    	message: err.message,
 	  error: {}
     });

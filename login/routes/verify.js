@@ -8,14 +8,12 @@ exports.getToken = function(user){
     });
 };
 
-export.verifyOrdinaryUser = function(req, res, next){
+exports.verifyOrdinaryUser = function(req, res, next){
 //check header or url parameters on post parameters for tokens
 var token = req.body.token || req.query.token || req.headers['x-access-token'];
-
 //decode token
-if(token) {
-  //verifies secret an checs export
-  jwt.verify(token, config.secretKey, function(err, decoded)){
+if(token) {//verifies secret an checs export
+  jwt.verify(token, config.secretKey, function(err, decoded){
     if(err) {
       var err = new Error('You are not aunthenticated!');
       err.status = 401;
@@ -26,11 +24,11 @@ if(token) {
       next();
     }
   });
-} else {
-  // if there is no token
-  // return an Error
-  var err = new Error('No token provided!');
-  err.status = 403;
-  return next(err);
-}
+  } else {
+    // if there is no token return an Error
+
+    var err = new Error('No token provided!');
+    err.status = 403;
+    return next(err);
+  }
 };

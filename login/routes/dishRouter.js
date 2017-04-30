@@ -7,11 +7,8 @@ var Verify = require('./verify');
 
 module.exports =  dishRouter = express.Router();
 dishRouter.use(bodyParser.json());
+
 dishRouter.route('/')
-.all(function(req, res, next){
-    res.writeHead(200, {"Content-Type":"text/html"});
-    next();
-})
 .get(Verify.verifyOrdinaryUser, function(req, res, next){
     res.end('Getting all dishes');
 })
