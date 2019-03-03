@@ -1,0 +1,40 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    list-style-type: none;
+}
+.container{
+    width: 1000px;
+    margin: 0px auto;
+}
+.top_nav ul li{
+    float: left;
+    padding: 10px;
+}
+.clear{
+    clear: both;
+}
+
+.left_side{
+    float: left;
+    width: 700px;
+    
+}
+.left_side article{
+    margin: 20px 20px;
+    border: 1px solid red;
+}
+.right_side{
+    float: left;
+    width: 300px;
+    
+}
+.right_side div {
+    margin: 20px 20px;
+    border: 1px solid blue;
+}
+
+.page_footer{
+    clear: both;
+    text-align: center;
+}
