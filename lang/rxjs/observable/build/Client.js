@@ -1,0 +1,13 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const Obs_1 = require("./Obs");
+const rxjs_1 = require("rxjs");
+const operators_1 = require("rxjs/operators");
+let unsubscribe$ = new rxjs_1.Subject();
+const subscription1 = Obs_1.myObservable.pipe(operators_1.takeUntil(unsubscribe$)).subscribe((value) => console.log('1: ' + value), (error) => console.log(error), () => console.log("Done!"));
+const subscription2 = Obs_1.myObservable.subscribe((value) => console.log('2: ' + value), (error) => console.log(error), () => console.log("Done!"));
+console.log("Do other things");
+// subscription1.unsubscribe();
+// subscription2.unsubscribe();
+console.log((subscription1.isSubscribed()) ? 's1 is subscribed' : 's1 is not subscribed');
+console.log((subscription2.isSubscribed()) ? 's2 is subscribed' : 's2 is not subscribed');
